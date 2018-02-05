@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class MediaService {
@@ -26,6 +26,12 @@ export class MediaService {
     } else {
       return true;
     }
+  }
+  uploadMedia(form) {
+    const settings = {
+      headers: new HttpHeaders().set('x-access-token', localStorage.getItem('token'))
+    };
+    return this.http.post(this.baseUrl + 'media', form, settings);
   }
 
   hasValidToken() {
